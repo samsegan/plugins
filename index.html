@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plug-ins by Segan</title>
+  <meta name="description" content="Ten plug-ins for your DAW and three Mac apps, for friends. One line installs everything and keeps it up to date.">
+  <meta name="theme-color" content="#13171e">
+  <meta property="og:title" content="Plug-ins by Segan">
+  <meta property="og:description" content="Ten plug-ins for your DAW and three Mac apps, for friends. One line installs everything and keeps it up to date.">
+  <meta property="og:image" content="https://samsegan.github.io/plugins/Signature.png">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/Barlow-Bold.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    /* Cold Steel, the plug-ins' look, as on Combiner's page (apps/Combiner/site):
+       the chassis behind everything, chamfered slate modules with bolts,
+       near-black wells, steel blue only for the one thing to do. The fonts
+       (Barlow, SIL OFL 1.1: fonts/OFL.txt), the two textures and Signature.png
+       are copies of the plug-ins' in shared/ui/assets. */
+    @font-face { font-family: "Barlow"; font-weight: 600; font-display: swap; src: url("fonts/Barlow-SemiBold.woff2") format("woff2"); }
+    @font-face { font-family: "Barlow"; font-weight: 700; font-display: swap; src: url("fonts/Barlow-Bold.woff2") format("woff2"); }
+    @font-face { font-family: "Barlow Condensed"; font-weight: 700; font-display: swap; src: url("fonts/BarlowCondensed-Bold.woff2") format("woff2"); }
+    :root {
+      --chassis: #13171e; --slate: #2b323e; --well: #0a0d12; --edge: #0a0d12;
+      --text: #e9edf2; --text2: #bac3ce; --muted: #93a0b0;
+      --accent: #70a6dc; --accent-top: #8ac0f6; --accent-bottom: #4a80b6; --on-accent: #ffffff; --glow: #bfe0ff;
+      --control-top: #424c5c; --control-bottom: #2f3744;
+      --cut: 12px;
+      /* A hex bolt, as ModulePainter.bolt draws them. */
+      --bolt: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cdefs%3E%3ClinearGradient id='s' x1='0.15' y1='0' x2='0.85' y2='1'%3E%3Cstop offset='0' stop-color='%23e3e8ee'/%3E%3Cstop offset='0.45' stop-color='%238c96a3'/%3E%3Cstop offset='1' stop-color='%234a5260'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='6' cy='6.8' r='4.8' fill-opacity='0.5'/%3E%3Cpath d='M10.06 7.09 7.09 10.06 3.03 8.97 1.94 4.91 4.91 1.94 8.97 3.03Z' fill='url(%23s)' stroke='%231b2028' stroke-width='0.6'/%3E%3Ccircle cx='6' cy='6' r='1.9' fill='%2311151b'/%3E%3Ccircle cx='4.53' cy='4.32' r='1.18' fill='%23fff' fill-opacity='0.35'/%3E%3C/svg%3E");
+      --sans: "Barlow", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      --wordmark: "Barlow Condensed", "Barlow", "Arial Narrow", sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body { background: var(--chassis); color: var(--text); font: 600 17px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+    /* The chassis, on its own fixed layer so a long page doesn't stretch it. */
+    body::before {
+      content: ""; position: fixed; inset: 0; z-index: -1;
+      background:
+        radial-gradient(farthest-corner at 50% 42%, transparent 55%, rgba(0, 0, 0, 0.55)),
+        linear-gradient(rgba(159, 198, 238, 0.1), rgba(159, 198, 238, 0) 45%),
+        url("ColdSteelChassis.jpg") center top / cover no-repeat,
+        var(--chassis);
+    }
+    main { max-width: 880px; margin: 0 auto; padding: 48px 16px 64px; }
+
+    /* Headings, buttons and labels: Barlow Bold in capitals. Sentences: Barlow SemiBold. */
+    h1, h2, h3, .btn, .tagline, .kind, .cmd button, .go { font-weight: 700; text-transform: uppercase; }
+    /* "PLUG-INS BY SEGAN", as the plug-ins title themselves (shared/ui/Signature). */
+    h1 { display: flex; flex-wrap: wrap; align-items: center; gap: 0 0.22em; font: 700 60px/1 var(--wordmark); letter-spacing: 0.12em; margin: 0; }
+    h1 .by { font: 700 0.3em/1 var(--sans); letter-spacing: 0.1em; color: var(--muted); }
+    h1 img { height: 0.72em; width: auto; }
+    .tagline { font-size: 13px; letter-spacing: 0.1em; color: var(--muted); margin: 12px 0 0; }
+    h2 { font-size: 18px; letter-spacing: 0.06em; line-height: 1.2; margin: 0 0 12px; color: var(--text); }
+    h2.section { font-size: 20px; margin: 34px 0 4px; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6); }
+    h3 { font-size: 17px; letter-spacing: 0.06em; margin: 0; color: var(--text); }
+    p { margin: 0 0 12px; color: var(--text2); }
+    p:last-child { margin-bottom: 0; }
+    .lede { font-size: 20px; line-height: 1.45; color: var(--text); margin: 24px 0 28px; max-width: 680px; }
+    a { color: var(--accent-top); }
+    b { color: var(--text); font-weight: 700; }
+    ol { margin: 0 0 14px; padding-left: 24px; color: var(--text2); }
+    li { margin: 0 0 10px; padding-left: 2px; }
+    li::marker { color: var(--muted); font-weight: 700; }
+    .small { font-size: 15px; color: var(--muted); }
+    .under { margin: 0 0 14px; }
+    kbd { font: 12px/1 var(--mono); color: var(--text); background: var(--well); border: 1px solid #05070a; border-radius: 3px; padding: 2px 5px; }
+    code { font: 13px/1.4 var(--mono); color: var(--text); }
+
+    /* A slate module: chamfered top left and bottom right, bolted at each
+       corner, the panel's steel under its face and a lit top edge (ModulePainter.paint). */
+    .module { position: relative; isolation: isolate; margin: 0 0 18px; padding: 24px 28px; filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.6)); }
+    .module::before, .module::after {
+      content: ""; position: absolute; z-index: -1;
+      clip-path: polygon(var(--cut) 0, 100% 0, 100% calc(100% - var(--cut)), calc(100% - var(--cut)) 100%, 0 100%, 0 var(--cut));
+    }
+    .module::before { inset: 0; background: var(--edge); }
+    .module::after {
+      inset: 1px;
+      background:
+        var(--bolt) left 8px top 2px / 12px no-repeat,
+        var(--bolt) right 2px top 2px / 12px no-repeat,
+        var(--bolt) right 8px bottom 2px / 12px no-repeat,
+        var(--bolt) left 2px bottom 2px / 12px no-repeat,
+        linear-gradient(rgba(125, 136, 153, 0.75), rgba(125, 136, 153, 0.75)) top / 100% 1px no-repeat,
+        linear-gradient(rgba(5, 7, 10, 0), rgba(5, 7, 10, 0.32)) bottom / 100% 40px no-repeat,
+        linear-gradient(rgba(50, 58, 71, 0.4), rgba(43, 50, 62, 0.4) 50%, rgba(37, 43, 53, 0.4)),
+        url("ColdSteelPanel.jpg") 0 0 / 256px,
+        var(--slate);
+    }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .grid.apps { grid-template-columns: repeat(3, 1fr); }
+    .grid .module { margin: 0; padding: 20px 24px; }
+    .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 6px; }
+    .kind { font-size: 12px; letter-spacing: 0.1em; color: var(--accent-top); white-space: nowrap; }
+    .grid p { font-size: 15.5px; }
+
+    /* A recessed well (Sunken): near-black, an inner shadow and a lit lip under it. */
+    .well {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0) 35%), var(--well);
+      border: 1px solid #05070a; border-radius: 4px;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2), inset 0 0 0 2px rgba(0, 0, 0, 0.155),
+        inset 0 0 0 3px rgba(0, 0, 0, 0.11), 0 2px 0 -1px rgba(86, 98, 122, 0.5);
+    }
+    .cmd { display: flex; gap: 10px; align-items: stretch; margin: 8px 0 4px; }
+    .cmd code { flex: 1; min-width: 0; overflow-x: auto; white-space: nowrap; padding: 11px 13px; }
+    /* The one primary action: steel blue, a lit top edge and a halo. */
+    .cmd.primary button {
+      color: var(--on-accent); text-shadow: 0 1px 1px rgba(16, 40, 72, 0.55);
+      background: linear-gradient(var(--accent-top), var(--accent-bottom));
+      box-shadow: inset 0 1px 0 rgba(214, 234, 255, 0.6), 0 0 0 3px rgba(112, 166, 220, 0.22), 0 2px 0 rgba(0, 0, 0, 0.5);
+    }
+    /* A raised slate button; its caption lights while it's pressed. */
+    .cmd button {
+      font: 700 15px/1 var(--sans); letter-spacing: 0.06em; color: var(--text2); cursor: pointer;
+      padding: 0 18px; border: 0; border-radius: 3px; min-width: 88px;
+      background: linear-gradient(var(--control-top), var(--control-bottom));
+      box-shadow: inset 0 1px 0 rgba(125, 136, 153, 0.6), 0 1.5px 0 rgba(0, 0, 0, 0.5);
+    }
+    .cmd button:active { color: var(--glow); filter: brightness(0.95); }
+    .meta { font-size: 15px; color: var(--muted); margin: 10px 0 12px; }
+
+    /* An app: its icon, name and version, and a way to its own page. */
+    a.module { display: block; text-decoration: none; color: inherit; }
+    a.module:hover { filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.6)) brightness(1.06); }
+    .app img { display: block; width: 64px; height: 64px; margin: -4px 0 8px -4px; }
+    .app .meta { margin: 0 0 6px; font-size: 13.5px; }
+    .app p { margin: 0 0 8px; }
+    .go { font-size: 13px; letter-spacing: 0.1em; color: var(--accent-top); }
+    footer { margin-top: 30px; font-size: 15px; color: var(--muted); }
+
+    @media (max-width: 760px) {
+      .grid, .grid.apps { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      main { padding-top: 32px; }
+      h1 { font-size: 44px; letter-spacing: 0.1em; }
+      .tagline { font-size: 11.5px; }
+      .lede { font-size: 18px; }
+      .module { padding: 22px 20px; }
+      .cmd { flex-direction: column; }
+      .cmd button { padding: 12px 18px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Plug-ins <span class="by">by</span> <img src="Signature.png" width="311" height="88" alt="Segan"></h1>
+    <p class="tagline">For friends and family · alpha</p>
+  </header>
+  <p class="lede">Ten plug-ins for Logic, Live or any DAW that loads Audio Units or VST3, and three Mac apps that go with them. One line installs the lot, and everything keeps itself up to date.</p>
+
+  <section class="module" id="get">
+    <h2>Get everything</h2>
+    <ol>
+      <li>Open <b>Terminal</b>: press <kbd>⌘</kbd> <kbd>Space</kbd>, type <b>Terminal</b> and press <kbd>Return</kbd>.</li>
+      <li>Paste this line and press <kbd>Return</kbd>:
+        <div class="cmd primary">
+          <code class="well">curl -fsSL https://samsegan.github.io/plugins/install.sh | bash</code>
+          <button type="button" data-copy>Copy</button>
+        </div>
+      </li>
+      <li>Quit and reopen your DAW.</li>
+    </ol>
+    <p class="meta" id="version">Plug-ins: macOS 11 or later, Apple silicon or Intel</p>
+    <p class="small">No password and no account. It installs every plug-in and app below, skips an app your Mac can't run, and sets up the updates. Run it again whenever you like: it only brings in what's new.</p>
+  </section>
+
+  <section class="module">
+    <h2>Just the plug-ins</h2>
+    <div class="cmd">
+      <code class="well">curl -fsSL https://samsegan.github.io/plugins/install.sh | bash -s -- --plugins</code>
+      <button type="button" data-copy>Copy</button>
+    </div>
+    <p class="small" style="margin-top: 12px">Or <a id="zip" href="https://github.com/samsegan/plugins/releases/latest/download/MusicPlugins.zip">download the zip</a> and install them by hand: unzip it, type <code>bash</code> and a space in Terminal, drag <b>install.sh</b> from the MusicPlugins folder onto the window and press <kbd>Return</kbd>. Plug-ins installed that way don't update themselves.</p>
+  </section>
+
+  <h2 class="section">The plug-ins</h2>
+  <p class="small under">Audio Unit and VST3 · Apple silicon and Intel · macOS 11 or later</p>
+  <div class="grid">
+    <section class="module">
+      <div class="card-head"><h3>Breakerizer</h3><span class="kind">Instrument</span></div>
+      <p>Builds breaks out of one-shots. Drop in a few samples, or a loop to chop, roll the dice, and drag the break back out as one WAV, stems, MIDI or the kit.</p>
+    </section>
+    <section class="module">
+      <div class="card-head"><h3>Chopperizer</h3><span class="kind">Slicer</span></div>
+      <p>Finds every hit in a drum loop and lets you drag the slices out as WAVs, one or all at once. Spread pans them wider pair by pair.</p>
+    </section>
+    <section class="module">
+      <div class="card-head"><h3>OTTizer</h3><span class="kind">Compressor</span></div>
+      <p>Xfer's OTT rebuilt from measurements, sample for sample, plus an amount per band, mid/side, and a Focus that keeps it off the fizzy top end.</p>
+    </section>
+    <section class="module">
+      <div class="card-head"><h3>Reverserizer</h3><span class="kind">Reverse reverb</span></div>
+      <p>Prints a reverse reverb of what just played, or of a clip you drop on it, as a wet WAV to drag into your song. Uses your Valhalla reverbs too.</p>
+    </section>
+    <section class="module">
+      <div class="card-head"><h3>Reversedelayerizer</h3><span class="kind">Reverse delay</span></div>
+      <p>The same for delays: reverse echoes that build up into the hit, printed to a WAV.</p>
+    </section>
+    <section class="module">
+      <div class="card-head"><h3>Tremorizer</h3><span class="kind">Tremolo</span></div>
+      <p>Tremolo and auto-pan from shapes you draw, free or in time with the song, or a ramp that speeds up and deepens over the bars you set.</p>
+    </section>
+    <section class="module">
+      <div class="card-head"><h3>Erodizer</h3><span class="kind">Distortion</span></div>
+      <p>Ableton Live's Erosion, for Logic and any other DAW, rebuilt from measurements of the real device.</p>
+    </section>
+    <section class="module">
+      <div class="card-head"><h3>Rackerizer</h3><span class="kind">Rack</span></div>
+      <p>A chain of your Audio Unit effects in one slot: type to add one, drag to reorder, and save racks to load again.</p>
+    </section>
+    <section class="module">
+      <div class="card-head"><h3>REF</h3><span class="kind">Meter</span></div>
+      <p>Last on your master bus: loudness, peaks, spectrum and stereo as you play. Drop a reference song on it and it measures each pass against it.</p>
+    </section>
+    <section class="module">
+      <div class="card-head"><h3>Combiner Capture</h3><span class="kind">For Combiner</span></div>
+      <p>Last on a channel, it prints that channel's sound for Combiner, so everyone in the room can drag it into their own session.</p>
+    </section>
+  </div>
+
+  <h2 class="section">The apps</h2>
+  <p class="small under">Each has its own page, with more about it and a download of its own.</p>
+  <div class="grid apps">
+    <a class="module app" href="/ref/" data-app="ref" data-needs="macOS 14 or later · Apple silicon">
+      <img src="/ref/icon.png" alt="">
+      <h3>REF</h3>
+      <div class="meta">macOS 14 or later · Apple silicon</div>
+      <p>Reference and refine: measures your mix against a reference song and tells you in plain English what to change.</p>
+      <span class="go">REF's page ›</span>
+    </a>
+    <a class="module app" href="/combiner/" data-app="combiner" data-needs="macOS 14 or later · Apple silicon">
+      <img src="/combiner/icon.png" alt="">
+      <h3>Combiner</h3>
+      <div class="meta">macOS 14 or later · Apple silicon</div>
+      <p>For a room full of producers: everyone sees and drags each other's bounces, stems, MIDI and Serum patches.</p>
+      <span class="go">Combiner's page ›</span>
+    </a>
+    <a class="module app" href="/plug/" data-app="plug" data-needs="macOS 14 or later · Apple silicon and Intel">
+      <img src="/plug/icon.png" alt="">
+      <h3>Plug</h3>
+      <div class="meta">macOS 14 or later · Apple silicon and Intel</div>
+      <p>New plug-ins, deals and sample packs by genre, and updates for the plug-ins on your Mac, in one window.</p>
+      <span class="go">Plug's page ›</span>
+    </a>
+  </div>
+
+  <h2 class="section">Updates</h2>
+  <section class="module" style="margin-top: 12px">
+    <p>The plug-ins look for a new version when you log in and every 30 minutes. A new one installs by itself, and a notification says so: quit and reopen your DAW to load it. A DAW that's open keeps the version it loaded until then.</p>
+    <p>The apps check once a day and offer the new version.</p>
+    <p class="small" style="margin-top: 16px">To stop the plug-in updates, paste this in Terminal:</p>
+    <div class="cmd">
+      <code class="well">bash ~/Library/Application\ Support/Music\ Plugins/update-plugins.sh --uninstall-agent</code>
+      <button type="button" data-copy>Copy</button>
+    </div>
+  </section>
+
+  <footer>Alpha · for friends and family · problems or ideas: tell Sam.</footer>
+</main>
+<script>
+  // Shown as "Oct 27, 2026".
+  const day = (iso) => {
+    const date = new Date(iso + "T12:00:00Z");
+    return isNaN(date) ? "" : date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+  };
+
+  // The plug-ins' newest release, from latest.json next to this page (release-plugins.sh writes it).
+  fetch("latest.json", { cache: "no-store" })
+    .then((response) => (response.ok ? response.json() : Promise.reject()))
+    .then((latest) => {
+      const when = latest.date ? " · " + day(latest.date) : "";
+      document.getElementById("version").textContent =
+        "Plug-ins version " + latest.version + when + " · macOS 11 or later, Apple silicon or Intel";
+      if (latest.bytes) document.getElementById("zip").textContent += " (" + Math.round(latest.bytes / 1e6) + " MB)";
+    })
+    .catch(() => {});
+
+  // Each app's version, from the update feed on its own page (same site).
+  for (const card of document.querySelectorAll("[data-app]")) {
+    fetch("/" + card.dataset.app + "/appcast.xml", { cache: "no-store" })
+      .then((response) => (response.ok ? response.text() : Promise.reject()))
+      .then((xml) => {
+        const version = /<sparkle:shortVersionString>([^<]+)</.exec(xml);
+        if (version) card.querySelector(".meta").textContent = "Version " + version[1] + " · " + card.dataset.needs;
+      })
+      .catch(() => {});
+  }
+
+  for (const button of document.querySelectorAll("[data-copy]")) {
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(button.previousElementSibling.textContent);
+        button.textContent = "Copied";
+        setTimeout(() => (button.textContent = "Copy"), 1500);
+      } catch {}
+    });
+  }
+</script>
+</body>
+</html>
