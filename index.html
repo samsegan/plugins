@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Plug-ins by Segan</title>
-  <meta name="description" content="Ten plug-ins for your DAW and three Mac apps, for friends. One line installs everything and keeps it up to date.">
+  <meta name="description" content="Ten plug-ins for your DAW and four Mac apps, for friends. One line installs everything and keeps it up to date.">
   <meta name="theme-color" content="#13171e">
   <meta property="og:title" content="Plug-ins by Segan">
-  <meta property="og:description" content="Ten plug-ins for your DAW and three Mac apps, for friends. One line installs everything and keeps it up to date.">
+  <meta property="og:description" content="Ten plug-ins for your DAW and four Mac apps, for friends. One line installs everything and keeps it up to date.">
   <meta property="og:image" content="https://samsegan.github.io/plugins/Signature.png">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preload" href="fonts/Barlow-SemiBold.woff2" as="font" type="font/woff2" crossorigin>
@@ -93,7 +93,6 @@
         var(--slate);
     }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .grid.apps { grid-template-columns: repeat(3, 1fr); }
     .grid .module { margin: 0; padding: 20px 24px; }
     .card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 6px; }
     .kind { font-size: 12px; letter-spacing: 0.1em; color: var(--accent-top); white-space: nowrap; }
@@ -134,7 +133,7 @@
     footer { margin-top: 30px; font-size: 15px; color: var(--muted); }
 
     @media (max-width: 760px) {
-      .grid, .grid.apps { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 520px) {
       main { padding-top: 32px; }
@@ -153,7 +152,7 @@
     <h1>Plug-ins <span class="by">by</span> <img src="Signature.png" width="311" height="88" alt="Segan"></h1>
     <p class="tagline">For friends and family · alpha</p>
   </header>
-  <p class="lede">Ten plug-ins for Logic, Live or any DAW that loads Audio Units or VST3, and three Mac apps that go with them. One line installs the lot, and everything keeps itself up to date.</p>
+  <p class="lede">Ten plug-ins for Logic, Live or any DAW that loads Audio Units or VST3, and four Mac apps that go with them. One line installs the lot, and everything keeps itself up to date.</p>
 
   <section class="module" id="get">
     <h2>Get everything</h2>
@@ -248,6 +247,13 @@
       <div class="meta">macOS 14 or later · Apple silicon and Intel</div>
       <p>New plug-ins, deals and sample packs by genre, and updates for the plug-ins on your Mac, in one window.</p>
       <span class="go">Plug's page ›</span>
+    </a>
+    <a class="module app" href="/preseterizer/" data-app="preseterizer" data-needs="macOS 14 or later · Apple silicon">
+      <img src="/preseterizer/icon.png" alt="">
+      <h3>Preseterizer</h3>
+      <div class="meta">macOS 14 or later · Apple silicon</div>
+      <p>New preset packs for Current and Serum 2, grown from the presets you choose and made on your Mac while your DAW is quiet.</p>
+      <span class="go">Preseterizer's page ›</span>
     </a>
   </div>
 

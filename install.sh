@@ -7,7 +7,7 @@
 # https://github.com/samsegan/plugins. That release's update-plugins.sh
 # installs them into ~/Library/Audio/Plug-Ins, then stays as an agent that
 # installs each new release by itself, at login and every 30 minutes. The apps
-# (REF, Combiner, Plug) come from their own pages' newest DMGs, go into
+# (REF, Combiner, Plug, Preseterizer) come from their own pages' newest DMGs, go into
 # /Applications (~/Applications if that isn't writable), open, and update
 # themselves. An app this Mac can't run (too old a macOS, or an Intel Mac for
 # an Apple silicon app) is skipped. Running it again brings anything that's
@@ -27,7 +27,7 @@ UPDATER="update-plugins.sh"
 # The plug-ins' deployment target (CMAKE_OSX_DEPLOYMENT_TARGET in plugins.yml).
 PLUGINS_MIN_MACOS="11.0"
 # Each app: the name of its .dmg and .app, then the public repo it's released from.
-APPS=("REF samsegan/ref" "Combiner samsegan/combiner" "Plug samsegan/plug")
+APPS=("REF samsegan/ref" "Combiner samsegan/combiner" "Plug samsegan/plug" "Preseterizer samsegan/preseterizer")
 QUIT_WAIT_SECONDS=10
 
 # Whether macOS version $1 is $2 or later (14.10 is later than 14.9).

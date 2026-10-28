@@ -3,7 +3,7 @@
 Downloads and updates for Sam's plug-ins (Audio Unit and VST3, for Mac):
 Breakerizer, Chopperizer, OTTizer, Reverserizer, Reversedelayerizer,
 Tremorizer, Erodizer, Rackerizer, REF and Combiner Capture. The page links to
-his apps too: REF, Combiner and Plug.
+his apps too: REF, Combiner, Plug and Preseterizer.
 
 **Get them: <https://samsegan.github.io/plugins>**
 
