@@ -37,13 +37,13 @@
     * { box-sizing: border-box; }
     html, body { margin: 0; }
     body { background: var(--chassis); color: var(--text); font: 600 17px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
-    /* The chassis, on its own fixed layer so a long page doesn't stretch it. */
+    /* The chassis, clean as the plug-ins draw it by default: flat steel under
+       one cold light, on its own fixed layer so a long page doesn't stretch it. */
     body::before {
       content: ""; position: fixed; inset: 0; z-index: -1;
       background:
         radial-gradient(farthest-corner at 50% 42%, transparent 55%, rgba(0, 0, 0, 0.55)),
         linear-gradient(rgba(159, 198, 238, 0.1), rgba(159, 198, 238, 0) 45%),
-        url("ColdSteelChassis.jpg") center top / cover no-repeat,
         var(--chassis);
     }
     main { max-width: 880px; margin: 0 auto; padding: 48px 16px 64px; }
@@ -72,7 +72,7 @@
     code { font: 13px/1.4 var(--mono); color: var(--text); }
 
     /* A slate module: chamfered top left and bottom right, bolted at each
-       corner, the panel's steel under its face and a lit top edge (ModulePainter.paint). */
+       corner, lit from above with a lit top edge (ModulePainter.paint, clean). */
     .module { position: relative; isolation: isolate; margin: 0 0 18px; padding: 24px 28px; filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.6)); }
     .module::before, .module::after {
       content: ""; position: absolute; z-index: -1;
@@ -87,10 +87,8 @@
         var(--bolt) right 8px bottom 2px / 12px no-repeat,
         var(--bolt) left 2px bottom 2px / 12px no-repeat,
         linear-gradient(rgba(125, 136, 153, 0.75), rgba(125, 136, 153, 0.75)) top / 100% 1px no-repeat,
-        linear-gradient(rgba(5, 7, 10, 0), rgba(5, 7, 10, 0.32)) bottom / 100% 40px no-repeat,
-        linear-gradient(rgba(50, 58, 71, 0.4), rgba(43, 50, 62, 0.4) 50%, rgba(37, 43, 53, 0.4)),
-        url("ColdSteelPanel.jpg") 0 0 / 256px,
-        var(--slate);
+        linear-gradient(rgba(5, 7, 10, 0), rgba(5, 7, 10, 0.2)) bottom / 100% 40px no-repeat,
+        linear-gradient(#323a47, #2b323e 50%, #252b35);
     }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     .grid .module { margin: 0; padding: 20px 24px; }
