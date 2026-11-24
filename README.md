@@ -1,9 +1,9 @@
 # Plug-ins by Segan
 
 Downloads and updates for Sam's plug-ins (Audio Unit and VST3, for Mac):
-Breakerizer, Chopperizer, OTTizer, Reverserizer, Tremorizer, Erodizer,
-Rackerizer and REF. The page links to his apps too: REF,
-Combiner, Plug and Preseterizer.
+Breakerizer, Chopperizer, OTTizer, Overtonizer, Reverserizer, Tremorizer,
+Erodizer and REF. The page links to his apps too: REF, Combiner and
+Preseterizer.
 
 **Get them: <https://segan.world/plugins>** (the old page,
 <https://samsegan.github.io/plugins>, sends you there)
