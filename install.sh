@@ -59,6 +59,8 @@ cleanup() {
 
 # The plug-ins, with the newest release's own updater: it installs them now
 # (or says they're up to date), then stays as the agent that keeps them so.
+# The updater also takes a retired plug-in's bundles off the Mac, on every
+# run: its "dropped" list is the one place they are named.
 install_plugins() {
     local updater="$TMP/$UPDATER"
     echo "== The plug-ins"
